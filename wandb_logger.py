@@ -20,7 +20,7 @@ class WandbLogger():
 
 
     
-    def log_ckpt_artifact(self, ckpt_path, alias):
+    def log_ckpt_taartifact(self, ckpt_path, alias):
         assert alias in ['best', 'last']
 
         if alias == 'best':

@@ -4,3 +4,4 @@ checkpoints/
 data/
 new/
 test_wandb.ipynb
+detect.py

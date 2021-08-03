@@ -59,6 +59,9 @@ and
 ```bash 
 wandb.log({'test loss':test_loss, 'test accuracy': test_accuracy})
 ```
+
+![alt](images/single_panel.png)
+
 ### Re-orginized logged charts and panels
 The above logging style only log all chart to 1 panel, which will be very confusing when having more chart and when we want to group these charts for easier access.
 
@@ -72,12 +75,26 @@ wandb.log({'test/loss':test_loss, 'test/accuracy': test_accuracy})
 ```
 This will create and group logged charts into 2 panels: `train` and `test`.
 
+![alt](images/multi_panel.png)
+
 ## Dashboard 
+Dashboard is a summary table of all runs in the project:
+![alt](images/wandb_dashboard.png)
+
+We can easily find and access desired runs with `filter` and `groups` features. `tags` also supports in faster finding specific run during tracking.
 
 ## Version Controlling with wandb Artifact
 Conceptually, an `artifact` is simply a directory in which we can store whatever we want. We can store dataset, models or checkpoints, ... with Artifact.
 
 Every time we change the contents of this directory, W&B will create a new version of that artifact instead of simply overwriting the previous contents.
+
+An example of artifact dictionary:
+
+![alt](images/wandb_artifacts.png)
+
+The first artifact upload version is set as `v0`, the next change version will be set with `v1` and `v2`, ... 
+
+The aliases `latest`, `new_data`, ... help in highlighting the importance of each artifact version.
 
 ### Dataset Version Controlling
 Logging and controlling dataset version:
@@ -86,6 +103,7 @@ artifact = wandb.Artifact(DATASET_NAME, type='dataset')
 artifact.add_dir(DATA_PATH)
 run.log_artifact(artifact)
 ```
+
 ### Model Version Controlling 
 Saving checkpoint of model:
 ```bash
@@ -106,3 +124,9 @@ artifact = run.use_artifact('hainguyen/demo_wandb/best.pth:v0', type='checkpoint
 artifact_dir = artifact.download('new/')
 ```
 We can pass the desired download location in `artifact.download()`
+
+We can easily find the api for restore artifact on wandb:
+
+![alt](images/wandb_api.png)
+
+Here, `Metadata` is a dictionary of related information and features we want to save. `Files` include logging data for latter restoring.

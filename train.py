@@ -65,6 +65,7 @@ if __name__ == '__main__':
     )
 
     run = wandb.init(project = PROJECT_NAME, tags=["training cnn"], config=config, resume=True)
+    run.name = 'newest run'
     
     artifact = wandb.Artifact(DATASET, type='dataset')
 

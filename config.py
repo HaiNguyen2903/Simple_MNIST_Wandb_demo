@@ -3,7 +3,7 @@ BATCH_SIZE_TRAIN= 256
 BATCH_SIZE_TEST = 128
 MOMENTUM        = 0.9
 LEARNING_RATE   = 0.001
-EPOCHS          = 3
+EPOCHS          = 5
 DROPOUT_RATE    = 0.1
 
 # task config

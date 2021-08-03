@@ -5,3 +5,4 @@ data/
 new/
 test_wandb.ipynb
 detect.py
+demo_1.onnx

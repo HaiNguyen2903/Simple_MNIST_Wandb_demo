@@ -48,11 +48,14 @@ def test(model, epoch, testloader):
     '''
     Log checkpoint artifact with wandb
     '''
-    ckpt_best_artifact = wandb.Artifact(CKPT_PATH + 'best.pth', type = 'checkpoint')
-    ckpt_last_artifact = wandb.Artifact(CKPT_PATH + 'last.pth', type = 'checkpoint')
+    ckpt_best_artifact = wandb.Artifact('best.pth', type = 'checkpoint')
+    ckpt_best_artifact.add_file(os.path.join(CKPT_PATH, 'best.pth'))
 
-    wandb.run.log(ckpt_last_artifact, aliases=['last'])
-    wandb.run.log(ckpt_best_artifact, aliases=['best'])
+    ckpt_last_artifact = wandb.Artifact('last.pth', type = 'checkpoint')
+    ckpt_last_artifact.add_file(os.path.join(CKPT_PATH, 'last.pth'))
+
+    wandb.run.log_artifact(ckpt_last_artifact, aliases=['last'])
+    wandb.run.log_artifact(ckpt_best_artifact, aliases=['best'])
     # wandb.log({"predict table": my_table})
 
     return test_loss, test_accuracy

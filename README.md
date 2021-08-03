@@ -107,11 +107,13 @@ run.log_artifact(artifact)
 ### Model Version Controlling 
 Saving checkpoint of model:
 ```bash
-ckpt_best_artifact = wandb.Artifact(CKPT_PATH + 'best.pth', type = 'checkpoint')
-ckpt_last_artifact = wandb.Artifact(CKPT_PATH + 'last.pth', type = 'checkpoint')
+ckpt_best_artifact = wandb.Artifact('best.pth', type = 'checkpoint')
+ckpt_best_artifact.add_file(os.path.join(CKPT_PATH, 'best.pth'))
+wandb.run.log_artifact(ckpt_best_artifact, aliases=['best'])
 
-wandb.run.log(ckpt_last_artifact, aliases=['last'])
-wandb.run.log(ckpt_best_artifact, aliases=['best'])
+ckpt_last_artifact = wandb.Artifact('last.pth', type = 'checkpoint')
+ckpt_last_artifact.add_file(os.path.join(CKPT_PATH, 'last.pth'))
+wandb.run.log_artifact(ckpt_last_artifact, aliases=['last'])
 ```
 Here, `aliases` is used to highlight the important versions in a list of artifacts.
 

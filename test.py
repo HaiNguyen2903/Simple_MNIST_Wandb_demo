@@ -32,19 +32,27 @@ def test(model, epoch, testloader):
     test_loss /= len(testloader)
     test_accuracy = 100. * correct / len(testloader.dataset)
 
+    wandb.log({'test/loss':test_loss, 'test/accuracy': test_accuracy})
 
-    # Save checkpoint
+    # Save checkpoint with pytorch
     if not os.path.exists(CKPT_PATH):
         os.mkdir(CKPT_PATH)
 
     if test_accuracy > best_acc:
         torch.save(model.state_dict(), CKPT_PATH + 'best.pth')
-        wandb.save(os.path.join(CKPT_PATH, 'best.pth'))
+        # wandb.save(os.path.join(CKPT_PATH, 'best.pth'))
 
     torch.save(model.state_dict(), CKPT_PATH + 'last.pth')
-    wandb.save(os.path.join(CKPT_PATH, 'last.pth'))
+    # wandb.save(os.path.join(CKPT_PATH, 'last.pth'))
 
-    wandb.log({'test loss':test_loss, 'test accuracy': test_accuracy})
+    '''
+    Log checkpoint artifact with wandb
+    '''
+    ckpt_best_artifact = wandb.Artifact(CKPT_PATH + 'best.pth', type = 'checkpoint')
+    ckpt_last_artifact = wandb.Artifact(CKPT_PATH + 'last.pth', type = 'checkpoint')
+
+    wandb.run.log(ckpt_last_artifact, aliases=['last'])
+    wandb.run.log(ckpt_best_artifact, aliases=['best'])
     # wandb.log({"predict table": my_table})
 
     return test_loss, test_accuracy

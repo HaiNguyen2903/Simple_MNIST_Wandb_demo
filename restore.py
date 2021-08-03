@@ -18,10 +18,14 @@ config = dict(
 # ckpt_artifact.add_file('checkpoints/best.pth')
 # run.log_artifact(ckpt_artifact)
 
-import wandb
-run = wandb.init()
-artifact = run.use_artifact('hainguyen/demo_wandb/best.pth:v0', type='checkpoint')
-artifact_dir = artifact.download('new/')
+# import wandb
+# run = wandb.init()
+# artifact = run.use_artifact('hainguyen/demo_wandb/best.pth:v0', type='checkpoint')
+# artifact_dir = artifact.download('new/')
+
+from wandb_logger import *
+
+wandb_logger = WandbLogger()
+wandb_logger.log_dataset_artifact('data/', data_name='new_mnist')
 
 embed()
-

@@ -23,3 +23,6 @@ def get_dataloader(train_set, test_set):
     testloader = torch.utils.data.DataLoader(test_set, batch_size=BATCH_SIZE_TEST, shuffle=False)
 
     return trainloader, testloader
+
+def log_dataset_artifact(data_dir):
+    print('sk')

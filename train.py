@@ -1,6 +1,7 @@
 import wandb
 from model import Net
 from utils import get_dataloader, get_dataset, get_transform
+from wandb_logger import *
 
 import torch
 import torch.nn.functional as F
@@ -37,7 +38,7 @@ def train(model, epoch, trainloader, optimizer, loss_function):
 
     total_loss = running_loss/len(trainloader.dataset)
 
-    wandb.log({'train loss':total_loss})
+    wandb.log({'train/loss':total_loss})
     wandb.log({'input': wandb.Image(input)})
     
 
@@ -50,7 +51,7 @@ def train(model, epoch, trainloader, optimizer, loss_function):
 
     # pytorch save
     # torch.save(model.state_dict(), SAVE_PATH+'.pth')
-    embed()
+    # embed()
     return 
 
 
@@ -63,9 +64,9 @@ if __name__ == '__main__':
         dataset       = DATASET
     )
 
-    run = wandb.init(project="demo_wandb", tags=["cnn"], config=config)
+    run = wandb.init(project = PROJECT_NAME, tags=["training cnn"], config=config, resume=True)
     
-    artifact = wandb.Artifact('mnist', type='dataset')
+    artifact = wandb.Artifact(DATASET, type='dataset')
 
     artifact.add_dir(DATA_PATH)
 

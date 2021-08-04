@@ -132,3 +132,10 @@ We can easily find the api for restore artifact on wandb:
 ![alt](images/wandb_api.png)
 
 Here, `Metadata` is a dictionary of related information and features we want to save. `Files` include logging data for latter restoring.
+
+### Reference 
+[Wandb docs](https://docs.wandb.ai/)
+
+[MNIST Demo Wandb](https://wandb.ai/hainguyen/demo_wandb?workspace=user-hainguyen)
+
+And special thanks for [this cool repo](https://github.com/manhdung20112000/mlops-wandb-demo) from Manh Dung :D
